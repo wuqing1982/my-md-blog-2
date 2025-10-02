@@ -4,6 +4,9 @@ import ReactMarkdown from 'react-markdown';
 import { getPostById, getAllPosts } from '@/lib/posts';
 import Link from 'next/link';
 
+// 强制该页面按请求动态渲染，确保新加入的 MD 文章可访问
+export const dynamic = 'force-dynamic';
+
 // 生成所有可能的动态路由（静态生成，提升性能）
 export async function generateStaticParams() {
   const posts = getAllPosts();
