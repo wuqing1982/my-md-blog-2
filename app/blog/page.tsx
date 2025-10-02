@@ -1,32 +1,28 @@
-// app/blog/page.tsx
 import Link from 'next/link';
 import { getAllPosts, PostMetadata } from '@/lib/posts';
 
-// 服务器组件：获取所有文章并展示
-async function BlogList() {
-  const posts: PostMetadata[] = getAllPosts(); // 调用工具函数
+export default async function BlogPage() {
+  const posts: PostMetadata[] = getAllPosts();
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-8">我的 Markdown 博客</h1>
-      
+
       <div className="space-y-8">
-        {posts.map(post => (
+        {posts.map((post) => (
           <article key={post.id} className="border-b pb-6">
-            {/* 链接到详情页 */}
             <Link href={`/blog/${post.id}`}>
               <h2 className="text-2xl font-semibold hover:text-blue-600">{post.title}</h2>
             </Link>
-            
+
             <div className="text-gray-600 mt-2">
-              <span>作者：{post.author}</span> · 
+              <span>作者：{post.author}</span> ·
               <span> 日期：{new Date(post.date).toLocaleDateString()}</span>
             </div>
-            
-            {/* 显示标签（如果有） */}
+
             {post.tags && post.tags.length > 0 && (
               <div className="mt-3 flex gap-2">
-                {post.tags.map(tag => (
+                {post.tags.map((tag) => (
                   <span key={tag} className="bg-gray-100 px-2 py-1 rounded text-sm">
                     {tag}
                   </span>
@@ -37,28 +33,5 @@ async function BlogList() {
         ))}
       </div>
     </div>
-  );
-}
-
-/* export default function BlogPage() {
-  return <BlogList />;
-} */
-
-
-// app/page.tsx
-//import Link from 'next/link';
-
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6">
-      <h1 className="text-4xl font-bold mb-8">欢迎来到我的博客</h1>
-      <Link 
-        href="/blog" 
-        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
-      >
-        进入博客列表
-      </Link>
-	  <BlogList />
-    </main>
   );
 }
